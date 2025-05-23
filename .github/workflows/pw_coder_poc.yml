@@ -16,8 +16,8 @@ permissions:
   packages: write
 
 env:
-  LYRA_DOMAIN: https://lyra-coyote-base--dev--${{coder-name}}.coder.dev.roadrunnerwm.com
-  ROADRUNNER_DOMAIN: https://coyote--dev--${{coder-name}}.coder.dev.roadrunnerwm.com
+  LYRA_DOMAIN: https://lyra-coyote-base--dev--${{ github.event.inputs.coder-name }}.coder.dev.roadrunnerwm.com
+  ROADRUNNER_DOMAIN: https://coyote--dev--${{ github.event.inputs.coder-name }}.coder.dev.roadrunnerwm.com
 
 jobs:
   output-lyra-domain:
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Set output
         id: set-output
-        run: echo "lyra-domain=${{ env.LYRA_DOMAIN }}" >> $GITHUB_ENV
+        run: echo "lyra-domain=${{ env.LYRA_DOMAIN }}" >> $GITHUB_OUTPUT
   output-roadrunner-domain:
     runs-on: ubuntu-latest
     outputs:
@@ -35,4 +35,4 @@ jobs:
     steps:
       - name: Set output
         id: set-output
-        run: echo "roadrunner-domain=${{ env.ROADRUNNER_DOMAIN }}" >> $GITHUB_ENV
+        run: echo "roadrunner-domain=${{ env.ROADRUNNER_DOMAIN }}" >> $GITHUB_OUTPUT
