@@ -1,0 +1,38 @@
+name: PW Coder POC
+on:
+  workflow_dispatch:
+    inputs:
+      coder-name:
+        description: 'Coder name'
+        required: true
+        type: string
+      coder-ip:
+        description: 'Coder IP'
+        required: true
+        type: string
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+
+env:
+  LYRA_DOMAIN: https://lyra-coyote-base--dev--${{coder-name}}.coder.dev.roadrunnerwm.com
+  ROADRUNNER_DOMAIN: https://coyote--dev--${{coder-name}}.coder.dev.roadrunnerwm.com
+
+jobs:
+  output-lyra-domain:
+    runs-on: ubuntu-latest
+    outputs:
+      lyra-domain: ${{ steps.set-output.outputs.lyra-domain }}
+    steps:
+      - name: Set output
+        id: set-output
+        run: echo "lyra-domain=${{ env.LYRA_DOMAIN }}" >> $GITHUB_ENV
+  output-roadrunner-domain:
+    runs-on: ubuntu-latest
+    outputs:
+      roadrunner-domain: ${{ steps.set-output.outputs.roadrunner-domain }}
+    steps:
+      - name: Set output
+        id: set-output
+        run: echo "roadrunner-domain=${{ env.ROADRUNNER_DOMAIN }}" >> $GITHUB_ENV
